@@ -1,0 +1,19 @@
+#
+# Schema file for Commerce Bleumi Pay module.
+#
+# PHP version 5
+#
+# @category  Bleumi
+# @package   Bleumi_BleumiPay
+# @author    Bleumi Pay <support@bleumi.com>
+# @copyright 2020 Bleumi, Inc. All rights reserved.
+# @license   MIT; see LICENSE
+# @link      http://pay.bleumi.com
+#
+
+commerce_bleumipay.commerce_payment_gateway.plugin.bleumipay_payments_redirect:
+  type: commerce_payment_gateway_configuration
+  mapping:
+    api_key:
+      type: string
+      label: 'Api Key'

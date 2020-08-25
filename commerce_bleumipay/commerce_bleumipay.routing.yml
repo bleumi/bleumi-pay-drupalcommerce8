@@ -1,0 +1,23 @@
+#
+# Routing file for Commerce Bleumi Pay module.
+#
+# PHP version 5
+#
+# @category  Bleumi
+# @package   Bleumi_BleumiPay
+# @author    Bleumi Pay <support@bleumi.com>
+# @copyright 2020 Bleumi, Inc. All rights reserved.
+# @license   MIT; see LICENSE
+# @link      http://pay.bleumi.com
+#
+commerce_bleumipay.cron:
+  path: '/commerce_bleumipay/cron'
+  defaults:
+    _controller: '\Drupal\commerce_bleumipay\Controller\BleumipayPaymentController::process'
+    _title: 'Bleumi Pay Commerce CRON'
+  requirements:
+    _access: 'TRUE'
+    _content_type_format: json
+    _method: 'GET|POST'
+  options:
+    no_cache: 'TRUE'

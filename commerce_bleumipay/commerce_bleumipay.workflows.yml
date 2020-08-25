@@ -1,0 +1,67 @@
+#
+# Workflows file for Commerce Bleumi Pay module.
+#
+# PHP version 5
+#
+# @category  Bleumi
+# @package   Bleumi_BleumiPay
+# @author    Bleumi Pay <support@bleumi.com>
+# @copyright 2020 Bleumi, Inc. All rights reserved.
+# @license   MIT; see LICENSE
+# @link      http://pay.bleumi.com
+#
+
+commerce_bleumipay_custom_workflow:
+  id: commerce_bleumipay_custom_workflow
+  group: commerce_order
+  label: 'Bleumi Pay Custom Workflow'
+  states:
+    draft:
+      label: Draft
+    pending:
+      label: Pending
+    awaitingconfirm:
+      label: Awaiting Payment Confirmation
+    multitoken:
+      label: Multi Token Payment
+    fulfillment:
+      label: Fulfillment
+    completed:
+      label: Completed
+    canceled:
+      label: Canceled
+    failed:
+      label: Payment Failed
+  transitions:
+    place:
+      label: 'Place order'
+      from: [draft]
+      to: pending
+    confirm:
+      label: 'Confirm order'
+      from: [pending]
+      to: awaitingconfirm      
+    multitoken:
+      label: 'Mark order multitoken'
+      from: [pending, awaitingconfirm]
+      to: multitoken
+    singletoken:
+      label: 'Mark order singletoken'
+      from: [multitoken]
+      to: pending
+    process:
+      label: 'Process order'
+      from: [pending, awaitingconfirm, multitoken]
+      to: fulfillment
+    fulfill:
+      label: 'Fulfill order'
+      from: [fulfillment]
+      to: completed
+    cancel:
+      label: 'Cancel order'
+      from: [draft, pending, fulfillment]
+      to:   canceled
+    fail:
+      label: 'Fail order'
+      from: [draft, pending, awaitingconfirm, multitoken]
+      to:   failed

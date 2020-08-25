@@ -1,0 +1,100 @@
+<?php
+
+/**
+ * Module file for the Commerce Bleumi Pay module.
+ *
+ * PHP version 5
+ *
+ * @category  Bleumi
+ * @package   Bleumi_BleumiPay
+ * @author    Bleumi Pay <support@bleumi.com>
+ * @copyright 2020 Bleumi, Inc. All rights reserved.
+ * @license   MIT; see LICENSE
+ * @link      http://pay.bleumi.com
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * @file
+ * Module definition file for Commerce Bleumi Pay module.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function commerce_bleumipay_help($route_name, RouteMatchInterface $route_match) {
+
+  switch ($route_name) {
+    case 'help.page.commerce_bleumipay':
+
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Bleumi Pay - Pay with Digital Currencies - Accept digital currency payments (like Tether USD, USD Coin, Stasis EURO, CryptoFranc).') . '</p>';
+
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_commerce_order_state_info().
+ */
+function commerce_bleumipay_commerce_order_state_info() {
+  $order_states = array();
+
+  $order_states['awaitingconfirm'] = array(
+    'name' => 'awaitingconfirm',
+    'title' => t('Awaiting Payment Confirmation'),
+    'description' => t('Orders in this state have been awaiting-payment-confirmation as far as the customer is concerned.'),
+    'weight' => 10,
+    'default_status' => 'awaitingconfirm',
+  );
+
+  $order_states['multitoken'] = array(
+    'name' => 'multitoken',
+    'title' => t('Multi Token Payment'),
+    'description' => t('Orders in this state have been multi-token-payment as far as the customer is concerned.'),
+    'weight' => 10,
+    'default_status' => 'multitoken',
+  );
+
+  $order_states['failed'] = array(
+    'name' => 'failed',
+    'title' => t('Payment Failed'),
+    'description' => t('Orders in this state have been payment-failed as far as the customer is concerned.'),
+    'weight' => 10,
+    'default_status' => 'failed',
+  );
+
+  return $order_states;
+}
+
+/**
+ * Implements hook_commerce_order_status_info().
+ */
+function commerce_bleumipay_commerce_order_status_info() {
+  $order_statuses = array();
+
+
+  $order_statuses['awaitingconfirm'] = array(
+    'name' => 'awaitingconfirm',
+    'title' => t('Awaiting Payment Confirmation'),
+    'state' => 'awaitingconfirm',
+  );
+
+  $order_statuses['multitoken'] = array(
+    'name' => 'multitoken',
+    'title' => t('Multi Token Payment'),
+    'state' => 'multitoken',
+  );
+
+  $order_statuses['failed'] = array(
+    'name' => 'failed',
+    'title' => t('Payment Failed'),
+    'state' => 'failed',
+  );
+
+
+  return $order_statuses;
+}
+
